@@ -15,3 +15,19 @@
 ## Hash sets
 > Left hash set will have left pair value, while right hash set will have the right pair value.
 > Example: ("BEG", "ZRH") => left hash map set: "BEG", right hash set: "ZRH"
+
+## Running the code
+> To run the main.rs file just in the root directory run the command `cargo run` which will build the project first, and then run it. If you just want to build run `cargo build`.
+
+## Testing
+> In order to run tests just run the command `cargo test`.
+> 
+> You can take a look at tests and edge-cases, and probably add some more examples to test them out.
+
+
+# Microservice API
+
+> The whole json file example with request and response is given in the file `req_resp_json_example.json`. You can run the server/microservice with cargo run and execure curl.sh script from console (shell script) and change curl params there in order to test it. 
+The example is given from the doc with requirements (google doc). When sending the cURL request (calling curl.sh from console) you will get back either Success with pair of starting and ending airport short name, or Failure with the reason behind it. 
+The reason is simple at the moment, but it can be further improved.
+One improvement would be to use HTTP codes for bad cURL requests, warp library I have used has some limitations around it and newer versions of it changed some stuff, maybe it would be better to use Actix library instead of warp ([Actix](https://actix.rs/)) to get some better return codes.

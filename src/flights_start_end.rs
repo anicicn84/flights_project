@@ -1,10 +1,6 @@
 use std::collections::HashSet;
 
-pub fn str_arr_to_pairs<'a>(arr: &'a [[&str; 2]]) -> Vec<(&'a str, &'a str)> {
-    arr.iter().map(|elem| (elem[0], elem[1])).collect()
-}
-
-fn construct_left_hashset<'a>(input: &Vec<(&'a str, &'a str)>) -> HashSet<&'a str> {
+fn construct_left_hashset<'a>(input: &[(&'a str, &'a str)]) -> HashSet<&'a str> {
     let mut hashset = HashSet::new();
     for (k, _) in input {
         hashset.insert(*k);
@@ -12,7 +8,7 @@ fn construct_left_hashset<'a>(input: &Vec<(&'a str, &'a str)>) -> HashSet<&'a st
     hashset
 }
 
-fn construct_right_hashset<'a>(input: &Vec<(&'a str, &'a str)>) -> HashSet<&'a str> {
+fn construct_right_hashset<'a>(input: &[(&'a str, &'a str)]) -> HashSet<&'a str> {
     let mut hashset = HashSet::new();
     for (_, v) in input {
         hashset.insert(*v);
@@ -20,7 +16,7 @@ fn construct_right_hashset<'a>(input: &Vec<(&'a str, &'a str)>) -> HashSet<&'a s
     hashset
 }
 
-pub fn construct_start_end<'a>(input: &Vec<(&'a str, &'a str)>) -> Option<(String, String)> {
+pub fn construct_start_end<'a>(input: &[(&'a str, &'a str)]) -> Option<(String, String)> {
     let left_hash_set = construct_left_hashset(input);
     let right_hash_set = construct_right_hashset(input);
 
@@ -53,6 +49,10 @@ pub fn construct_start_end<'a>(input: &Vec<(&'a str, &'a str)>) -> Option<(Strin
 
 #[cfg(test)]
 mod tests {
+
+    fn str_arr_to_pairs<'a>(arr: &'a [[&str; 2]]) -> Vec<(&'a str, &'a str)> {
+        arr.iter().map(|elem| (elem[0], elem[1])).collect()
+    }
     use super::*;
     #[test]
     fn arr_to_pairs_okay() {
@@ -140,6 +140,16 @@ mod tests {
             ["GSO", "IND"],
             ["ATL", "GSO"],
         ];
+        let elements = str_arr_to_pairs(&array);
+        let start_end = construct_start_end(&elements);
+        let start_expected = "SFO".to_string();
+        let end_expected = "EWR".to_string();
+        assert_eq!(start_end, Some((start_expected, end_expected)));
+    }
+
+    #[test]
+    fn second_doc_working_example() {
+        let array = [["ATL", "EWR"], ["SFO", "ATL"]];
         let elements = str_arr_to_pairs(&array);
         let start_end = construct_start_end(&elements);
         let start_expected = "SFO".to_string();

@@ -1,19 +1,32 @@
-use flights::construct_start_end;
-use flights::str_arr_to_pairs;
+mod flights_start_end;
+mod req_response;
 
-fn main() {
-    let array = [
-        ["IND", "EWR"],
-        ["SFO", "ATL"],
-        ["GSO", "IND"],
-        ["ATL", "GSO"],
-    ];
-    let elements = str_arr_to_pairs(&array);
-    let start_end = construct_start_end(&elements);
+use warp::Filter;
 
-    if let Some(val) = start_end {
-        println!("{:?}", val);
-    } else {
-        println!("Indecisive");
-    }
+#[tokio::main]
+async fn main() {
+    let routes = warp::post().and(warp::body::json()).map(
+        |start_and_end_req: req_response::StartAndDestinationRequest| {
+            // println!("{:#?}", start_and_end_req);
+
+            let pairs = start_and_end_req
+                .stop_list
+                .iter()
+                .map(|pair| (pair.0.as_str(), pair.1.as_str()))
+                .collect::<Vec<_>>();
+
+            let resp = match flights_start_end::construct_start_end(&pairs) {
+                Some(pair) => req_response::StartAndDestinationResponse::Success {
+                    start_and_end: pair,
+                },
+                None => req_response::StartAndDestinationResponse::Failure {
+                    reason: "Indecisive to get the travel data.".into(),
+                },
+            };
+
+            warp::reply::json(&resp)
+        },
+    );
+
+    warp::serve(routes).run(([127, 0, 0, 1], 3030)).await;
 }

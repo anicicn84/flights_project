@@ -1,0 +1,17 @@
+[package]
+name = "flights_project"
+version = "0.1.0"
+edition = "2021"
+authors = ["Nikola Anicic <anicicn84@gmail.com>"]
+
+[lib]
+name = "flights"
+path = "src/lib.rs"
+
+[[bin]]
+name = "flights"
+path = "src/main.rs"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]

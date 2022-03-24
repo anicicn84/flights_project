@@ -1,0 +1,24 @@
+{
+    "request": {
+        "method": "start_and_destination", 
+        "args": {
+            "stop_list": [["IND", "EWR"], ["SFO", "ATL"], ["GSO", "IND"], ["ATL", "GSO"]]
+        },
+        "id": 1, 
+        "access_token": {
+            "sub": "1234567890",
+            "name": "John Doe"
+        }
+    },
+
+    "response": {
+        "id": 1, 
+        "next_access_token": {
+            "sub": "0123456789",
+            "name": "Jane Doe"
+        }, 
+        "result": {
+            "start_and_end": ["SFO", "EWR"]
+        }
+    }
+}

@@ -1,4 +1,4 @@
-# README Nikola Anicic
+# README
 ## _Flight project_
 
 Returns the starting and ending destination from the list of possible fligts passed on in a json format from some request and returns a response in a form of a pair (start, end) if it can find it, otherwise and error.

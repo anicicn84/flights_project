@@ -1,6 +1,8 @@
 # README Nikola Anicic
 ## _Flight project_
 
+Returns the starting and ending destination from the list of possible fligts passed on in a json format from some request and returns a response in a form of a pair (start, end) if it can find it, otherwise and error.
+
 ## Cases
 - [['BEG', 'ZRH'], ['ZRH', 'BEG']] can be indesicive - return inconclusive result
 - [['BEG', 'ZRH'], ['ZRH', 'MNL'], ['MNL', 'BEG']] is okay, but cyclic graph, result: ['BEG', 'BEG']
